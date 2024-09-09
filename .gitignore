@@ -1,1 +1,8 @@
 *.webp
+*.jpg
+*.jpeg
+
+.vscode
+
+cypher
+decypher
