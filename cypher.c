@@ -38,10 +38,23 @@ int main(int argc, char* argv[]) {
 
     if (directory_name) {
         DIR* dir_stream = opendir(directory_name);
-        if (!directory_name) {
+        if (!dir_stream) {
             printf("%s\n", "Error: couldn't open the directory");
             exit(EXIT_FAILURE);
         }
+        char filename[256];
+       
+        struct dirent* dir;
+        while((dir = readdir(dir_stream)) != NULL) {
+            if (dir->d_type == 8) {
+                strcpy(filename, directory_name);
+                strcat(filename, dir->d_name);
+                printf("%s\n", filename);
+                process_file(filename);
+                memset(filename, 0, sizeof(filename));
+            }
+        }
+
         return 0;
     }
 
